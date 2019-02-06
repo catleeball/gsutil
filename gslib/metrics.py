@@ -43,6 +43,7 @@ import boto
 from gslib import VERSION
 from gslib.metrics_tuple import Metric
 from gslib.utils import system_util
+from gslib.utils.system_util import IS_WINDOWS
 from gslib.utils.unit_util import CalculateThroughput
 from gslib.utils.unit_util import HumanReadableToBytes
 
@@ -730,12 +731,19 @@ class MetricsCollector(object):
       # If the path is not None, we'll need to surround the path with quotes
       # so that the path is passed as a string to the metrics_reporter module.
       log_file_path = '"%s"' % log_file_path
-
-    reporting_code = ('from gslib.metrics_reporter import ReportMetrics; '
+    if IS_WINDOWS:
+      reporting_code = ('from gslib.metrics_reporter import ReportMetrics; '
                       'ReportMetrics("{0}", {1}, log_file_path={2})').format(
                           temp_metrics_file.name,
                           log_level,
-                          log_file_path).encode('utf-8').decode('unicode_escape')
+                          log_file_path).encode('utf-8')
+    else:
+      reporting_code = (
+        'from gslib.metrics_reporter import ReportMetrics; '
+        'ReportMetrics("{0}", {1}, log_file_path={2})').format(
+          temp_metrics_file.name,
+          log_level,
+          log_file_path).encode('utf-8').decode('unicode_escape')
     execution_args = [sys.executable, '-c', reporting_code]
     exec_env = os.environ.copy()
     exec_env['PYTHONPATH'] = os.pathsep.join(sys.path)
