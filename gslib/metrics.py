@@ -747,9 +747,13 @@ class MetricsCollector(object):
     execution_args = [sys.executable, '-c', reporting_code]
     exec_env = os.environ.copy()
     exec_env['PYTHONPATH'] = os.pathsep.join(sys.path)
-
+    # type verification
+    execution_args = [six.ensure_str(part) for part in execution_args]
+    envstr = dict()
+    for k, v in six.iteritems(exec_env):
+      envstr[six.ensure_str(k)] = six.ensure_str(v)
     try:
-      p = subprocess.Popen(execution_args, env=exec_env)
+      p = subprocess.Popen(execution_args, env=envstr)
       self.logger.debug('Metrics reporting process started...')
 
       if wait_for_report:
