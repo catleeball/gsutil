@@ -619,7 +619,8 @@ class TestMetricsIntegrationTests(testcase.GsUtilIntegrationTestCase):
     stderr = self.RunGsUtil(['-d'] + cmd, return_stderr=True,
                             expected_status=expected_status,
                             env_vars={'GSUTIL_TEST_ANALYTICS': '2'})
-    return METRICS_LOG_RE.search(stderr).group()
+    results = METRICS_LOG_RE.search(stderr)
+    return "" if results is None else results.group()
 
   def _StartObjectPatch(self, *args, **kwargs):
     """Runs mock.patch.object with the given args, and returns the mock object.
