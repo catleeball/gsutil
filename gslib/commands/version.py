@@ -163,17 +163,15 @@ class VersionCommand(Command):
     # orders the list.
     for filepath in sorted(files_to_checksum):
       if six.PY2:
-        f = open(filepath, 'rb')
-        content = f.read()
+        with open(filepath, 'rb') as f:
+          content = f.read()
         content = re.sub(r'(\r\n|\r|\n)', b'\n', content)
         m.update(content)
-        f.close()
       else:
-        f = open(filepath, 'r')
-        content = f.read()
+        with open(filepath, 'r', encoding='utf-8') as f:
+          content = f.read()
         content = re.sub(r'(\r\n|\r|\n)', '\n', content)
         m.update(content.encode('utf-8'))
-        f.close()
     return m.hexdigest()
 
 
