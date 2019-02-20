@@ -46,7 +46,7 @@ class PubsubV1(base_api.BaseApiClient):
                get_credentials=True, http=None, model=None,
                log_request=False, log_response=False,
                credentials_args=None, default_global_params=None,
-               additional_http_headers=None):
+               additional_http_headers=None, response_encoding=None):
     """Create a new pubsub handle."""
     url = url or self.BASE_URL
     super(PubsubV1, self).__init__(
@@ -61,6 +61,7 @@ class PubsubV1(base_api.BaseApiClient):
     self.projects_topics_subscriptions = self.ProjectsTopicsSubscriptionsService(self)
     self.projects_topics = self.ProjectsTopicsService(self)
     self.projects = self.ProjectsService(self)
+    self.response_encoding = response_encoding
 
   class ProjectsSnapshotsService(base_api.BaseApiService):
     """Service class for the projects_snapshots resource."""
