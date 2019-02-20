@@ -54,7 +54,8 @@ class StorageV1(base_api.BaseApiClient):
                get_credentials=True, http=None, model=None,
                log_request=False, log_response=False,
                credentials_args=None, default_global_params=None,
-               version=_VERSION, additional_http_headers=None):
+               version=_VERSION, additional_http_headers=None,
+               response_encoding=None):
     """Create a new storage handle."""
     url = url or self.BASE_URL
     super(StorageV1, self).__init__(
@@ -74,6 +75,7 @@ class StorageV1(base_api.BaseApiClient):
     self.objects = self.ObjectsService(self)
     self.projects_serviceAccount = self.ProjectsServiceAccountService(self)
     self.projects = self.ProjectsService(self)
+    self.response_encoding = response_encoding
 
   class BucketAccessControlsService(base_api.BaseApiService):
     """Service class for the bucketAccessControls resource."""
