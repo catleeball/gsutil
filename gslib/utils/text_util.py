@@ -305,7 +305,10 @@ def ttyprint(*objects, **kwargs):
       if isinstance(object, bytes):
         byte_objects.append(object)
       elif isinstance(object, str):
-        byte_objects.append(object.encode(pref_enc))
+        try:
+          byte_objects.append(object.encode(pref_enc))
+        except (UnicodeDecodeError, UnicodeEncodeError):
+          byte_objects.append(object.encode('utf-8'))
       else:
         byte_objects.append(str(object).encode(pref_enc))
     data = sep.join(byte_objects)
