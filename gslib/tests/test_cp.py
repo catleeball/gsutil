@@ -197,41 +197,51 @@ def TestCpMvPOSIXBucketToLocalErrors(cls, bucket_uri, obj, tmpdir, is_cp=True):
   # The first variable below can be used to help debug the test if there is a
   # problem.
   for test_name, attrs_dict in six.iteritems(test_params):
-    cls.ClearPOSIXMetadata(obj)
+    try:
+      cls.ClearPOSIXMetadata(obj)
 
-    # Attributes default to None if they are not in attrs_dict; some attrs are
-    # functions or LazyWrapper objects that should be called.
-    uid = attrs_dict.get(UID_ATTR)
-    if uid is not None and callable(uid):
-      uid = uid()
+      # Attributes default to None if they are not in attrs_dict; some attrs are
+      # functions or LazyWrapper objects that should be called.
+      uid = attrs_dict.get(UID_ATTR)
+      if uid is not None and callable(uid):
+        uid = uid()
 
-    gid = attrs_dict.get(GID_ATTR)
-    if gid is not None and callable(gid):
-      gid = gid()
+      gid = attrs_dict.get(GID_ATTR)
+      if gid is not None and callable(gid):
+        gid = gid()
 
-    mode = attrs_dict.get(MODE_ATTR)
+      mode = attrs_dict.get(MODE_ATTR)
 
-    cls.SetPOSIXMetadata(cls.default_provider, bucket_uri.bucket_name,
-                         obj.object_name, uid=uid, gid=gid, mode=mode)
-    stderr = cls.RunGsUtil(['cp' if is_cp else 'mv', '-P',
-                            suri(bucket_uri, obj.object_name), tmpdir],
-                           expected_status=1, return_stderr=True)
-    cls.assertIn(
-        ORPHANED_FILE,
-        stderr,
-        'Error during test "%s": %s not found in stderr:\n%s' % (
-            test_name, ORPHANED_FILE, stderr))
-    error_regex = BuildErrorRegex(obj, attrs_dict.get(error))
-    cls.assertTrue(
-        error_regex.search(stderr),
-        'Test %s did not match expected error; could not find a match for '
-        '%s\n\nin stderr:\n%s' % (test_name, error_regex.pattern, stderr))
-    listing1 = TailSet(suri(bucket_uri), cls.FlatListBucket(bucket_uri))
-    listing2 = TailSet(tmpdir, cls.FlatListDir(tmpdir))
-    # Bucket should have un-altered content.
-    cls.assertEquals(listing1, {'/%s' % obj.object_name})
-    # Dir should have un-altered content.
-    cls.assertEquals(listing2, {''})
+      cls.SetPOSIXMetadata(cls.default_provider, bucket_uri.bucket_name,
+                           obj.object_name, uid=uid, gid=gid, mode=mode)
+      stderr = cls.RunGsUtil(['cp' if is_cp else 'mv', '-P',
+                              suri(bucket_uri, obj.object_name), tmpdir],
+                             expected_status=1, return_stderr=True)
+      cls.assertIn(
+          ORPHANED_FILE,
+          stderr,
+          'Error during test "%s": %s not found in stderr:\n%s' % (
+              test_name, ORPHANED_FILE, stderr))
+      error_regex = BuildErrorRegex(obj, attrs_dict.get(error))
+      cls.assertTrue(
+          error_regex.search(stderr),
+          'Test %s did not match expected error; could not find a match for '
+          '%s\n\nin stderr:\n%s' % (test_name, error_regex.pattern, stderr))
+      listing1 = TailSet(suri(bucket_uri), cls.FlatListBucket(bucket_uri))
+      listing2 = TailSet(tmpdir, cls.FlatListDir(tmpdir))
+      # Bucket should have un-altered content.
+      cls.assertEquals(listing1, {'/%s' % obj.object_name})
+      # Dir should have un-altered content.
+      cls.assertEquals(listing2, {''})
+    except Exception as exc:
+      # providing additional information about the test name and traceback
+      # for testing
+      import traceback
+      print("Exception raised in test:{0}\nTest Name:{1}\nExpected Error: {3}\n"
+            "Traceback:{2}\n".format(
+        str(exc), test_name, traceback.format_exc(), attrs_dict.get(error)),
+        file=sys.stderr)
+      raise exc
 
 
 def TestCpMvPOSIXBucketToLocalNoErrors(cls, bucket_uri, tmpdir, is_cp=True):
