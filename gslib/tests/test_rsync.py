@@ -1425,10 +1425,9 @@ class TestRsync(testcase.GsUtilIntegrationTestCase):
       self.assertTrue(BuildErrorRegex(obj11, POSIX_UID_ERROR).search(stderr))
       self.assertTrue(BuildErrorRegex(obj12, POSIX_UID_ERROR).search(stderr))
       self.assertTrue(BuildErrorRegex(obj13, POSIX_UID_ERROR).search(stderr))
-      if not (six.PY3 and IS_OSX):
-        # TODO: Verify UID/GID when preserving POSIX permissions
-        self.assertTrue(BuildErrorRegex(obj14, POSIX_GID_ERROR).search(stderr))
-        self.assertTrue(BuildErrorRegex(obj15, POSIX_GID_ERROR).search(stderr))
+      # TODO: Verify UID/GID when preserving POSIX permissions
+      self.assertTrue(BuildErrorRegex(obj14, POSIX_GID_ERROR).search(stderr))
+      self.assertTrue(BuildErrorRegex(obj15, POSIX_GID_ERROR).search(stderr))
       self.assertTrue(BuildErrorRegex(obj16, POSIX_INSUFFICIENT_ACCESS_ERROR)
                       .search(stderr))
       self.assertTrue(BuildErrorRegex(obj17, POSIX_MODE_ERROR).search(stderr))
