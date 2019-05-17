@@ -200,13 +200,11 @@ class HelpCommand(Command):
           help_str.replace(tag, '')
         return help_str
 
-      if ('<B>' in help_str) or ('</B>' in help_str):
-        help_str.replace('<B>', '\033[1m')
-        help_str.replace('</B>', '\033[0;0m')
-
       help_lines = help_str.split()
       modified_lines = False
       for line in help_lines:
+        help_str.replace('<B>', '\033[1m')
+        help_str.replace('</B>', '\033[0;0m')
         if line.startswith('# '):
           line.replace('# ', '\033[1m')
           line += '\033[0;0m'
