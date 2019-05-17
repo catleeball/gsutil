@@ -31,7 +31,6 @@ class CommandOptions(HelpProvider):
         'wildcard',
         '*',
         '**',
-        '?'
       ],
       help_type='additional_help',
       help_one_line_summary='Wildcard Names',
