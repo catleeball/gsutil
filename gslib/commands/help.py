@@ -203,12 +203,16 @@ class HelpCommand(Command):
       help_lines = help_str.split()
       modified_lines = False
       for line in help_lines:
-        line.replace('<B>', '\033[1m')
-        line.replace('</B>', '\033[0;0m')
         if line.startswith('# '):
           line.replace('# ', '\033[1m')
           line += '\033[0;0m'
           modified_lines = True
+        # This block can be removed once we've verified <B> is gone
+        if ('<B>' in line) or ('</B>' in line):
+          line.replace('<B>', '\033[1m')
+          line.replace('</B>', '\033[0;0m')
+          modified_lines = True
+
       
       if modified_lines:
         help_str = ''.join(help_lines)
