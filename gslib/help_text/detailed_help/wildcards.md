@@ -1,4 +1,4 @@
-<B>DESCRIPTION</B>
+# DESCRIPTION
   gsutil supports URI wildcards. For example, the command:
 
     gsutil cp gs://bucket/data/abc* .
@@ -7,7 +7,7 @@
   number of characters within that subdirectory.
 
 
-<B>DIRECTORY BY DIRECTORY VS RECURSIVE WILDCARDS</B>
+# DIRECTORY BY DIRECTORY VS RECURSIVE WILDCARDS
   The "*" wildcard only matches up to the end of a path within
   a subdirectory. For example, if bucket contains objects
   named gs://bucket/data/abcd, gs://bucket/data/abcdef,
@@ -36,7 +36,7 @@
     gsutil cp 'data/abc**' gs://bucket
 
 
-<B>BUCKET WILDCARDS</B>
+# BUCKET WILDCARDS
   You can specify wildcards for bucket names within a single project. For
   example:
 
@@ -55,7 +55,7 @@
     gsutil rm gs://*/**.txt
 
 
-<B>OTHER WILDCARD CHARACTERS</B>
+# OTHER WILDCARD CHARACTERS
   In addition to '*', you can use these wildcards:
 
   ?
@@ -77,7 +77,7 @@
     gs://bucket/[a-m]??.j*g
 
 
-<B>POTENTIALLY SURPRISING BEHAVIOR WHEN USING WILDCARDS</B>
+# POTENTIALLY SURPRISING BEHAVIOR WHEN USING WILDCARDS
   There are a couple of ways that using wildcards can result in surprising
   behavior:
 
@@ -115,7 +115,7 @@
      but that approach may be difficult to use in general.
 
 
-<B>DIFFERENT BEHAVIOR FOR "DOT" FILES IN LOCAL FILE SYSTEM</B>
+# DIFFERENT BEHAVIOR FOR "DOT" FILES IN LOCAL FILE SYSTEM
   Per standard Unix behavior, the wildcard "*" only matches files that don't
   start with a "." character (to avoid confusion with the "." and ".."
   directories present in all Unix directories). gsutil provides this same
@@ -131,7 +131,7 @@
     gsutil cp dir/* gs://bucket1
 
 
-<B>EFFICIENCY CONSIDERATION: USING WILDCARDS OVER MANY OBJECTS</B>
+# EFFICIENCY CONSIDERATION: USING WILDCARDS OVER MANY OBJECTS
   It is more efficient, faster, and less network traffic-intensive
   to use wildcards that have a non-wildcard object-name prefix, like:
 
@@ -154,7 +154,7 @@
   concrete use case example.
 
 
-<B>EFFICIENCY CONSIDERATION: USING MID-PATH WILDCARDS</B>
+# EFFICIENCY CONSIDERATION: USING MID-PATH WILDCARDS
   Suppose you have a bucket with these objects:
 
     gs://bucket/obj1

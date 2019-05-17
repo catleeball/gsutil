@@ -1,4 +1,4 @@
-<B>OVERVIEW</B>
+# OVERVIEW
   Particularly when used with the -m (multi-threading) option, gsutil can
   consume a significant amount of network bandwidth. In some cases this can
   cause problems, for example if you start a large rsync operation over a

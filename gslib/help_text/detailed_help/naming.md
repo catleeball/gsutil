@@ -1,4 +1,4 @@
-<B>BUCKET NAME REQUIREMENTS</B>
+# BUCKET NAME REQUIREMENTS
   Google Cloud Storage has a single namespace, so you will not be allowed
   to create a bucket with a name already in use by another user. You can,
   however, carve out parts of the bucket name space corresponding to your
@@ -28,7 +28,7 @@
     period or dash. For example, ".." or "-." or ".-" are not acceptable.
 
 
-<B>OBJECT NAME REQUIREMENTS</B>
+# OBJECT NAME REQUIREMENTS
   Object names can contain any sequence of Unicode characters, of length 1-1024
   bytes when UTF-8 encoded. Object names must not contain CarriageReturn,
   CarriageReturnLineFeed, or the XML-disallowed surrogate blocks (xFFFE
@@ -55,7 +55,7 @@
   and potential interoperability concerns.
 
 
-<B>DOMAIN NAMED BUCKETS</B>
+# DOMAIN NAMED BUCKETS
   You can carve out parts of the Google Cloud Storage bucket name space
   by creating buckets with domain names (like "example.com").
 

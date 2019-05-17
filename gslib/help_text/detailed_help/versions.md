@@ -1,4 +1,4 @@
-<B>OVERVIEW</B>
+# OVERVIEW
   Versioning-enabled buckets maintain an archive of objects, providing a way to
   un-delete data that you accidentally deleted, or to retrieve older versions of
   your data. You can turn versioning on or off for a bucket at any time. Turning
@@ -36,7 +36,7 @@
   control.
 
 
-<B>OBJECT VERSIONING</B>
+# OBJECT VERSIONING
   You can view, enable, and disable object versioning on a bucket using
   the 'versioning get' and 'versioning set' commands. For example:
 
@@ -148,7 +148,7 @@
   you want to retain.
 
 
-<B>COPYING VERSIONED BUCKETS</B>
+# COPYING VERSIONED BUCKETS
   You can copy data between two versioned buckets, using a command like:
 
     gsutil cp -r -A gs://bucket1/* gs://bucket2
@@ -177,7 +177,7 @@
 
 
 
-<B>CONCURRENCY CONTROL</B>
+# CONCURRENCY CONTROL
   If you are building an application using Google Cloud Storage, you may need to
   be careful about concurrency control. Normally gsutil itself isn't used for
   this purpose, but it's possible to write scripts around gsutil that perform
@@ -255,6 +255,6 @@
   metageneration=2.
 
 
-<B>FOR MORE INFORMATION</B>
+# FOR MORE INFORMATION
   For more details on how to use versioning and preconditions, see
   https://cloud.google.com/storage/docs/object-versioning

@@ -1,4 +1,4 @@
-<B>OVERVIEW</B>
+# OVERVIEW
   If you use gsutil in large production tasks (such as uploading or
   downloading many GiBs of data each night), there are a number of things
   you can do to help ensure success. Specifically, this section discusses
@@ -6,7 +6,7 @@
   mechanism.
 
 
-<B>BACKGROUND ON RESUMABLE TRANSFERS</B>
+# BACKGROUND ON RESUMABLE TRANSFERS
   First, it's helpful to understand gsutil's resumable transfer mechanism,
   and how your script needs to be implemented around this mechanism to work
   reliably. gsutil uses resumable transfer support when you attempt to download
@@ -25,7 +25,7 @@
   resolved), and the resumable transfer picks up where it left off.
 
 
-<B>SCRIPTING DATA TRANSFER TASKS</B>
+# SCRIPTING DATA TRANSFER TASKS
   To script large production data transfer tasks around this mechanism,
   you can implement a script that runs periodically, determines which file
   transfers have not yet succeeded, and runs gsutil to copy them. Below,

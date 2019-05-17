@@ -1,4 +1,4 @@
-<B>OVERVIEW OF METADATA</B>
+# OVERVIEW OF METADATA
   Objects can have associated metadata, which control aspects of how
   GET requests are handled, including Content-Type, Cache-Control,
   Content-Disposition, and Content-Encoding (discussed in more detail in
@@ -25,7 +25,7 @@
   More details about specific pieces of metadata are discussed below.
 
 
-<B>CONTENT-TYPE</B>
+# CONTENT-TYPE
   The most commonly set metadata is Content-Type (also known as MIME type),
   which allows browsers to render the object properly. gsutil sets the
   Content-Type automatically at upload time, based on each filename extension.
@@ -43,7 +43,7 @@
   desired for some of your files.
 
 
-<B>CACHE-CONTROL</B>
+# CACHE-CONTROL
   Another commonly set piece of metadata is Cache-Control, which allows
   you to control whether and for how long browser and Internet caches are
   allowed to cache your objects. Cache-Control only applies to objects with
@@ -79,7 +79,7 @@
   "gsutil help setmeta".
 
 
-<B>CONTENT-ENCODING</B>
+# CONTENT-ENCODING
   You can specify a Content-Encoding to indicate that an object is compressed
   (for example, with gzip compression) while maintaining its Content-Type.
   You will need to ensure that the files have been compressed using the
@@ -108,7 +108,7 @@
   "gsutil help cp".
 
 
-<B>CONTENT-DISPOSITION</B>
+# CONTENT-DISPOSITION
   You can set Content-Disposition on your objects, to specify presentation
   information about the data being transmitted. Here's an example:
 
@@ -122,7 +122,7 @@
   for more details about the meaning of Content-Disposition.
 
 
-<B>CUSTOM METADATA</B>
+# CUSTOM METADATA
   You can add your own custom metadata (e.g,. for use by your application)
   to a Google Cloud Storage object by using "x-goog-meta" with -h. For example:
 
@@ -131,7 +131,7 @@
   You can add multiple differently-named custom metadata fields to each object.
 
 
-<B>SETTABLE FIELDS; FIELD VALUES</B>
+# SETTABLE FIELDS; FIELD VALUES
   You can't set some metadata fields, such as ETag and Content-Length. The
   fields you can set are:
 
@@ -158,7 +158,7 @@
   value automatically, printing the character "ã".
 
 
-<B>VIEWING CURRENTLY SET METADATA</B>
+# VIEWING CURRENTLY SET METADATA
   You can see what metadata is currently set on an object by using:
 
     gsutil ls -L gs://the_bucket/the_object

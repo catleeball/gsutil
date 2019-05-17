@@ -1,4 +1,4 @@
-<B>OVERVIEW</B>
+# OVERVIEW
   By default, Google Cloud Storage encrypts all object data using Google-managed
   encryption keys and the AES256 encryption algorithm. However, you can also use
   one of two encryption key types - those that you supply, called
@@ -41,7 +41,7 @@
            cp /some/local/file gs://my-bucket/
 
 
-<B>ENCRYPTION BEHAVIOR</B>
+# ENCRYPTION BEHAVIOR
   A single encryption_key may be specified in the .boto configuration file,
   and multiple decryption_keys may be specified.
 
@@ -82,7 +82,7 @@
   decryption_keys 2 through 8 are provided.
 
 
-<B>RESUMABLE OPERATIONS AND ENCRYPTION KEYS</B>
+# RESUMABLE OPERATIONS AND ENCRYPTION KEYS
   If the encryption_key in your boto configuration file changes during a
   partially-completed write or copy operation (for example, if you re-run
   a `gsutil cp` object upload after hitting ^C or encountering a network
@@ -90,7 +90,7 @@
   that the destination object is written with the new key.
 
 
-<B>GENERATING CUSTOMER-SUPPLIED ENCRYPTION KEYS</B>
+# GENERATING CUSTOMER-SUPPLIED ENCRYPTION KEYS
   Generating a 256-bit RFC 4648 Base64-encoded string for use as an encryption
   key can be easily done with Python:
 
@@ -98,7 +98,7 @@
                print(base64.encodestring(os.urandom(32)))'
 
 
-<B>MANAGING CUSTOMER-SUPPLIED ENCRYPTION KEYS</B>
+# MANAGING CUSTOMER-SUPPLIED ENCRYPTION KEYS
   Because Google does not store CSEKs, if you lose your CSEK, you will
   permanently lose access to all of your data encrypted with that key.
   Therefore, it is recommended that you back up each encryption key to a secure
@@ -110,7 +110,7 @@
   encryption keys are not shared with untrusted parties.
 
 
-<B>ROTATING KEYS</B>
+# ROTATING KEYS
   To rotate CSEKs, you can change your encryption_key configuration value to a
   decryption_key configuration value and then use a new value for the
   encryption_key. Then you can use the rewrite command to rotate keys in the
@@ -137,7 +137,7 @@
   encryption_key configuration value.
 
 
-<B>PERFORMANCE IMPLICATIONS FOR ENCRYPTION KEYS</B>
+# PERFORMANCE IMPLICATIONS FOR ENCRYPTION KEYS
   When performing an object listing, metadata for objects encrypted with a CSEK
   or CMEK will not include the objects' CRC32C or MD5 hashes. For gsutil
   commands that require these fields, such as `gsutil ls -L`, gsutil performs an
@@ -147,7 +147,7 @@
   encrypted with Google-owned keys.
 
 
-<B>SECURITY IMPLICATIONS FOR CUSTOMER-SUPPLIED ENCRYPTION KEYS</B>
+# SECURITY IMPLICATIONS FOR CUSTOMER-SUPPLIED ENCRYPTION KEYS
   gsutil always sends encryption keys over HTTPS, so your CSEKs will never be
   visible on the network. However, the keys are present in your .boto
   configuration file as well as in the memory of the machine executing gsutil.
@@ -156,7 +156,7 @@
   key rotation for all objects encrypted with the compromised keys.
 
 
-<B>XML API UNSUPPORTED</B>
+# XML API UNSUPPORTED
   gsutil does not support using the XML API to interact with encrypted objects,
   and will use the JSON API if any encryption_key or decryption_keys are
   specified in configuration.

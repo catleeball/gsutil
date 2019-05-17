@@ -1,4 +1,4 @@
-<B>TECHNICAL SUPPORT</B>
+# TECHNICAL SUPPORT
   If you have any questions or encounter any problems with Google Cloud Storage,
   please first read the `FAQ <https://cloud.google.com/storage/docs/faq>`_.
 
@@ -42,7 +42,7 @@
   contributions; see "gsutil help dev".)
 
 
-<B>BILLING AND ACCOUNT QUESTIONS</B>
+# BILLING AND ACCOUNT QUESTIONS
   A) For billing documentation, please visit
   https://cloud.google.com/storage/pricing.
   If you want to cancel billing, follow the instructions at

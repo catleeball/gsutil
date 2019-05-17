@@ -1,4 +1,4 @@
-<B>RETRY STRATEGY</B>
+# RETRY STRATEGY
   There are a number of reasons that gsutil operations can fail; some are not
   retryable, and require that the user take some action, for example:
 

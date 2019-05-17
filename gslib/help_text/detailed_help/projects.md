@@ -1,8 +1,8 @@
-<B>OVERVIEW</B>
+# OVERVIEW
   This section discusses how to work with projects in Google Cloud Storage.
 
 
-<B>PROJECT MEMBERS AND PERMISSIONS</B>
+# PROJECT MEMBERS AND PERMISSIONS
   There are three groups of users associated with each project:
 
   - Project Owners are allowed to list, create, and delete buckets,
@@ -22,7 +22,7 @@
   `Google Cloud Platform Console <https://cloud.google.com/console#/project>`_.
 
 
-<B>HOW PROJECT MEMBERSHIP IS REFLECTED IN BUCKET ACLS</B>
+# HOW PROJECT MEMBERSHIP IS REFLECTED IN BUCKET ACLS
   When you create a bucket without specifying an ACL the bucket is given a
   "project-private" ACL, which grants the permissions described in the previous
   section. Here's an example of such an ACL:
@@ -60,7 +60,7 @@
   `Google Cloud Platform Console <https://cloud.google.com/console#/project>`_.
 
 
-<B>IDENTIFYING PROJECTS WHEN CREATING AND LISTING BUCKETS</B>
+# IDENTIFYING PROJECTS WHEN CREATING AND LISTING BUCKETS
   When you create a bucket you need to provide the project ID that will own
   the bucket you want to create, and when you want to list your buckets, you
   need to provide the project ID that you want to list. By default, gsutil uses

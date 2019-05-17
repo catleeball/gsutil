@@ -1,4 +1,4 @@
-<B>OVERVIEW</B>
+# OVERVIEW
   To reduce the chance for `filename encoding interoperability problems
   <https://en.wikipedia.org/wiki/Filename#Encoding_indication_interoperability>`_ 
   gsutil uses `UTF-8 <https://en.wikipedia.org/wiki/UTF-8>`_ character encoding
@@ -42,7 +42,7 @@
   requirement applies only to filenames.
 
 
-<B>USING UNICODE FILENAMES ON WINDOWS</B>
+# USING UNICODE FILENAMES ON WINDOWS
   Windows support for Unicode in the command shell (cmd.exe or powershell) is
   somewhat painful, because Windows uses a Windows-specific character encoding
   called `cp1252 <https://en.wikipedia.org/wiki/Windows-1252>`_. To use Unicode
@@ -66,7 +66,7 @@
   using cygwin (on Windows) or Linux or macOS - all of which support Unicode.
 
 
-<B>USING UNICODE FILENAMES ON MACOS</B>
+# USING UNICODE FILENAMES ON MACOS
   macOS stores filenames in decomposed form (also known as
   `NFD normalization <https://en.wikipedia.org/wiki/Unicode_equivalence>`_).
   For example, if a filename contains an accented "e" character, that character
@@ -85,7 +85,7 @@
   a decomposed form, and Cloud Storage sees this as a different object name.
 
 
-<B>CROSS-PLATFORM ENCODING PROBLEMS OF WHICH TO BE AWARE</B>
+# CROSS-PLATFORM ENCODING PROBLEMS OF WHICH TO BE AWARE
   Using UTF-8 for all object names and filenames will ensure that gsutil doesn't
   encounter character encoding errors while operating on the files.
   Unfortunately, it's still possible that files uploaded / downloaded this way
@@ -119,7 +119,7 @@
   option) rather than explicitly named individual files.
 
 
-<B>CONVERTING FILENAMES TO UNICODE</B>
+# CONVERTING FILENAMES TO UNICODE
   Open-source tools are available to convert filenames for non-Unicode files.
   For example, to convert from latin1 (a common Windows encoding) to Unicode,
   you can use
