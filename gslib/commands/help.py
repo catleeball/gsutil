@@ -23,6 +23,7 @@ import itertools
 import os
 import pkgutil
 import re
+
 from subprocess import PIPE
 from subprocess import Popen
 
@@ -182,15 +183,42 @@ class HelpCommand(Command):
     Args:
       help_str: String to format.
     """
-    # Remove <B> and </B> tags and replace them with ANSI control codes if
-    # writing to a compatible tty.
-    if IS_WINDOWS or not IsRunningInteractively():
-      help_str = re.sub('<B>', '', help_str)
-      help_str = re.sub('</B>', '', help_str)
-      text_util.print_to_fd(help_str)
-      return
-    help_str = re.sub('<B>', '\033[1m', help_str)
-    help_str = re.sub('</B>', '\033[0;0m', help_str)
+    def _tty_format_str(help_str):
+      """Replace `<B>` and `# ` tags and replace with ANSI control codes
+         
+      Replace `<B>` and `# ` tags and replace with ANSI control codes if
+      writing to a compatible tty. `<B>` may still exist in some doc strings
+      although we are porting them to markdown format soon.
+
+      Args:
+        help_str: String to format
+      Returns:
+        Formatted string
+      """
+      if IS_WINDOWS or not IsRunningInteractively():
+        for tag in ['<B>', '</B>', '# ']:
+          help_str.replace(tag, '')
+        return help_str
+
+      if ('<B>' in help_str) or ('</B>' in help_str):
+        help_str.replace('<B>', '\033[1m')
+        help_str.replace('</B>', '\033[0;0m')
+
+      help_lines = help_str.split()
+      modified_lines = False
+      for line in help_lines:
+        if line.startswith('# '):
+          line.replace('# ', '\033[1m')
+          line += '\033[0;0m'
+          modified_lines = True
+      
+      if modified_lines:
+        help_str = ''.join(help_lines)
+
+      return help_str
+
+    help_str = _tty_format_str(help_str)
+
     num_lines = len(help_str.split('\n'))
     if 'PAGER' in os.environ and num_lines >= GetTermLines():
       # Use -r option for less to make bolding work right.
@@ -201,7 +229,7 @@ class HelpCommand(Command):
         Popen(pager, stdin=PIPE).communicate(input=help_str)
       except OSError as e:
         raise CommandException('Unable to open pager (%s): %s' %
-                               (' '.join(pager), e))
+                              (' '.join(pager), e))
     else:
       text_util.print_to_fd(help_str)
 
