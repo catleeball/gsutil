@@ -212,11 +212,37 @@ class HelpCommand(Command):
           line.replace('<B>', '\033[1m')
           line.replace('</B>', '\033[0;0m')
           modified_lines = True
-
       
       if modified_lines:
         help_str = ''.join(help_lines)
 
+      return help_str
+
+    def _remove_markdown(help_str):
+     	listLeadersReg  = re.compile('(?m)^([\s\t]*)([\*\-\+]|\d\.)\s+')
+      headerReg       = re.compile('\n={2,}')
+      strikeReg       = re.compile('~~')
+      codeReg         = re.compile('`{3}" + `.*\n')
+      htmlReg         = re.compile('<(.*?)>')
+      emphReg         = re.compile('\*\*([^*]+)\*\*')
+      emphReg2        = re.compile('\*([^*]+)\*')
+      emphReg3        = re.compile('__([^_]+)__')
+      emphReg4        = re.compile('_([^_]+)_')
+      setextHeaderReg = re.compile('^[=\-]{2,}\s*$')
+      footnotesReg    = re.compile('\[\^.+?\](\: .*?$)?')
+      footnotes2Reg   = re.compile('\s{0,2}\[.*?\]: .*?$')
+      imagesReg       = re.compile('\!\[(.*?)\]\s?[\[\(].*?[\]\)]')
+      linksReg        = re.compile('\[(.*?)\][\[\(].*?[\]\)]')
+      blockquoteReg   = re.compile('>\s*')
+      refLinkReg      = re.compile('^\s{1,2}\[(.*?)\]: (\S+)( ".*?")?\s*$')
+      atxHeaderReg    = re.compile('(?m)^\#{1,6}\s*([^#]+)\s*(\#{1,6})?$')
+      atxHeaderReg2   = re.compile('([\*_]{1,3})(\S.*?\S)?P1')
+      atxHeaderReg3   = re.compile('(?m)(`{3,})" + `(.*?)?P1')
+      atxHeaderReg4   = re.compile('^-{3,}\s*$')
+      atxHeaderReg5   = re.compile('`(.+?)`')
+      atxHeaderReg6   = re.compile('\n{2,}')
+
+      # TODO: make this work
       return help_str
 
     help_str = _tty_format_str(help_str)
