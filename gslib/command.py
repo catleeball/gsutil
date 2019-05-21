@@ -30,6 +30,7 @@ import codecs
 from collections import namedtuple
 import copy
 import getopt
+import io
 import json
 import logging
 import multiprocessing
@@ -454,6 +455,25 @@ def InitializeThreadingVariables():
   worker_checking_level_lock = threading.Lock()
   concurrent_compressed_upload_lock = threading.BoundedSemaphore(
       GetMaxConcurrentCompressedUploads())
+
+
+def GetHelpText(cmd_name, markdown=False):
+  help_file = 'gslib/help_text/commands/{cmd_name}.md'.format(
+    cmd_name=cmd_name)
+  with io.open(help_file, mode='r') as f:
+    help_text = f.read()
+  # TODO(b/132908979): Parse out markdown syntax for printing to terminal
+  #                    if markdown = False
+  return help_text
+    
+
+def GetSynopsisText(cmd_name, markdown=False):
+  help_text = GetHelpText(cmd_name, markdown=True)
+  # 'Synopsis' is always the first header, and 'Description' is always the
+  # second header. Hence, just split on '# DESCRIPTION'.
+  # TODO(b/132908979): Parse out markdown syntax for printing to terminal
+  #                    if markdown = False
+  return help_text.split('# DESCRIPTION')[0]
 
 
 # Each subclass of Command must define a property named 'command_spec' that is

@@ -30,6 +30,8 @@ from subprocess import Popen
 import gslib.addlhelp
 from gslib.command import Command
 from gslib.command import OLD_ALIAS_MAP
+from gslib.command import GetHelpText
+from gslib.command import GetSynopsisText
 import gslib.commands
 from gslib.exception import CommandException
 from gslib.help_provider import HelpProvider
@@ -39,47 +41,8 @@ from gslib.utils.system_util import IsRunningInteractively
 from gslib.utils.system_util import GetTermLines
 from gslib.utils import text_util
 
-_SYNOPSIS = """
-  gsutil help [command or topic]
-"""
-
-_DETAILED_HELP_TEXT = ("""
-<B>SYNOPSIS</B>
-""" + _SYNOPSIS + """
-
-
-<B>DESCRIPTION</B>
-  Running:
-
-    gsutil help
-
-  will provide a summary of all commands and additional topics on which
-  help is available.
-
-  Running:
-
-    gsutil help command or topic
-
-  will provide help about the specified command or topic.
-
-  Running:
-
-    gsutil help command sub-command
-
-  will provide help about the specified sub-command. For example, running:
-
-    gsutil help acl set
-
-  will provide help about the "set" subcommand of the "acl" command.
-
-  If you set the PAGER environment variable to the path to a pager program
-  (such as /bin/less on Linux), long help sections will be piped through
-  the specified pager.
-""")
-
 top_level_usage_string = ('Usage: gsutil [-D] [-DD] [-h header]... '
                           '[-m] [-o] [-q] [command [opts...] args...]')
-
 
 class HelpCommand(Command):
   """Implementation of gsutil help command."""
@@ -88,7 +51,7 @@ class HelpCommand(Command):
   command_spec = Command.CreateCommandSpec(
       'help',
       command_name_aliases=['?', 'man'],
-      usage_synopsis=_SYNOPSIS,
+      usage_synopsis=GetSynopsisText('help'),
       min_args=0,
       max_args=2,
       supported_sub_args='',
@@ -102,7 +65,7 @@ class HelpCommand(Command):
       help_name_aliases=['?'],
       help_type='command_help',
       help_one_line_summary='Get help about commands and topics',
-      help_text=_DETAILED_HELP_TEXT,
+      help_text=GetHelpText('help'),
       subcommand_help_text={},
   )
 
